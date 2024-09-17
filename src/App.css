@@ -1,38 +1,112 @@
-.App {
-  text-align: center;
+body {
+  /* font-family: "Poppins", sans-serif; */
+  font-family: "Outfit", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+p {
+  /* font-size: calc(14.8px + 0.0625vw);
+  font-weight: 400; */
+  letter-spacing: .03em;
+}
+.btn-add-cart {
+  transition: 0.3s ease;
+  bottom: -100px;
+}
+.box-prod:hover .btn-add-cart {
+  bottom: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.btn-fav {
+  transition: 0.3s ease;
+  right: -10px;
+}
+.btn-prod:hover .btn-fav {
+  right: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.acrivesize {
+  background-color: rgb(241 245 249);
+}
+
+.styleShadow {
+  box-shadow: rgba(0, 0, 0, 1) 0px 22px 100px 20px;
+}
+
+.active-show-details {
+  color: black;
+  border-bottom: 2px solid #868686;
+}
+
+.active-show-product {
+  color: black;
+  border-bottom: 2px solid #868686;
+}
+
+.active-category {
+  border-bottom: 2px solid #fff;
+}
+
+.active-number-page {
+  border: 2px solid #868686;
+}
+
+
+.show {
+  transform: translateY(0.5rem);
+  
+}
+
+.slider {
+   width: 100%;
+   height: 4px;
+   border-radius: 4px;
+   background-color: #e6e6e6;
+   margin-top: 20px;
+}
+
+.slider .track-0{
+display: none;
+}
+.slider .track{
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid black;
+  cursor: grab;
+  /* top: 4px; */
+}
+
+.custom-checkbox {
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid #767676;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  position: relative;
+  transition: all .3s ease-in-out;
+  width: 20px;
+}
+
+.custom-checkbox:checked {
+  background-color: #F5CAAB;
+  border: 1px solid rgba(var(--theme-default), 1);
+}
+
+/* .custom-checkbox:checked:before {
   color: white;
-}
+  transform: translate(-50%, -50%) scale(1);
+} */
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* .bx-check {
+  color: white; 
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: all .3s ease-in-out;
+} */
