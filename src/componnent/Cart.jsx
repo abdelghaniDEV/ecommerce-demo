@@ -16,9 +16,6 @@ function Cart({ setShowCart }) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  const stripePromise = loadStripe(
-    "pk_test_51Px9ITFcvwzdK8OARbahJMcmYbry0gWZstXb6bROkVgFspD0frKPGQ1LI70Dl9n0TxUB4erpmPp5pqUe8hSpMqr700zCglaxwK"
-  );
 
   const priceTotal = () => {
     return cart
@@ -129,14 +126,14 @@ function Cart({ setShowCart }) {
         </div>
       </div>
       <div className="flex  fixed  bottom-0 items-center px-[25px] border-t-2  bg-slate-00 w-full py-2 z-[1000] bg-slate-100 ">
-        <div className="flex gap-[120px]">
+        <div className="flex gap-[40px] md:gap-[100px]">
           <div>
             <span className="text-[18px]">
               Total :{" "}
               <span className=" text-[22px] font-[600]">${priceTotal()}</span>
             </span>
           </div>
-          <div className="py-1 ">
+          <div className="py-1  ">
             <Link
               to={"/checkout"}
               onClick={() => setShowCart(false)}

@@ -23,7 +23,7 @@ function CategpryCart({ category }) {
       >
         <div className="">
         {loading && (
-              <div className="w-full h-full bg-slate-100 absolute z-[1000]">
+              <div className="w-full h-full bg-slate-100 absolute z-[100]">
                 <div className="flex gap-2 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
                   <div className="w-5 h-5 rounded-full animate-pulse bg-[#F5CAAB]"></div>
                   <div className="w-5 h-5 rounded-full animate-pulse bg-[#F5CAAB]"></div>
