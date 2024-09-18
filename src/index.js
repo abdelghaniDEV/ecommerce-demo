@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
   <RecoilRoot>
-  <BrowserRouter>
+  <BrowserRouter basename='/ecommerce-demo'>
    <Provider store={store}>
     <App />
     </Provider>
