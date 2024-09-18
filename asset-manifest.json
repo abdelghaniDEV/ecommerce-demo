@@ -1,13 +1,14 @@
 {
   "files": {
     "main.css": "/ecommerce-demo/static/css/main.9fcd3e94.css",
-    "main.js": "/ecommerce-demo/static/js/main.05400dfa.js",
+    "main.js": "/ecommerce-demo/static/js/main.ed8c7b5e.js",
     "static/js/453.0b71bf06.chunk.js": "/ecommerce-demo/static/js/453.0b71bf06.chunk.js",
     "static/media/bn_shop@4x.png": "/ecommerce-demo/static/media/bn_shop@4x.8c3c7f6e3e4ad5a5280b.png",
     "static/media/NEN-1.png": "/ecommerce-demo/static/media/NEN-1.94bebd7d70431a9aa9b5.png",
     "static/media/womennew.png": "/ecommerce-demo/static/media/womennew.bd52c6a17e111f0e988e.png",
     "static/media/bnnn.png": "/ecommerce-demo/static/media/bnnn.0b2b80631403e341d85d.png",
     "static/media/system-solid-31-check-hover-check (1).gif": "/ecommerce-demo/static/media/system-solid-31-check-hover-check (1).0ce4696b078fcb39f22c.gif",
+    "static/media/loading-none-bg.gif": "/ecommerce-demo/static/media/loading-none-bg.f83a40eda7d9bf2f93dc.gif",
     "static/media/SAFWA@4x.png": "/ecommerce-demo/static/media/SAFWA@4x.20e3a5d4a78d9a586375.png",
     "static/media/Fashion-5 (3).webp": "/ecommerce-demo/static/media/Fashion-5 (3).4cb09a63529f5d863481.webp",
     "static/media/thank-you.png": "/ecommerce-demo/static/media/thank-you.d1b73812dce043476a5e.png",
@@ -17,11 +18,11 @@
     "static/media/instructor-03-02-2-100x100.webp": "/ecommerce-demo/static/media/instructor-03-02-2-100x100.a9b65a3a31a497e8bdc6.webp",
     "index.html": "/ecommerce-demo/index.html",
     "main.9fcd3e94.css.map": "/ecommerce-demo/static/css/main.9fcd3e94.css.map",
-    "main.05400dfa.js.map": "/ecommerce-demo/static/js/main.05400dfa.js.map",
+    "main.ed8c7b5e.js.map": "/ecommerce-demo/static/js/main.ed8c7b5e.js.map",
     "453.0b71bf06.chunk.js.map": "/ecommerce-demo/static/js/453.0b71bf06.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9fcd3e94.css",
-    "static/js/main.05400dfa.js"
+    "static/js/main.ed8c7b5e.js"
   ]
 }
