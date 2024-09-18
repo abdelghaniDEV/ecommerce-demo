@@ -13,6 +13,7 @@ import {
   deleteItemWshlist,
 } from "../rtlk/slices/wshlist-slice";
 import { AnimatePresence, motion } from "framer-motion";
+import loadingAnimate from '../images/loading-none-bg.gif'
 
 function ProductCart({ product, id }) {
   const [showCart, setShowCart] = useRecoilState(showCartsatate);
@@ -29,7 +30,7 @@ function ProductCart({ product, id }) {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2000);
   }, []);
 
   const handlWshliteClick = (productInWishlist) => {
@@ -91,11 +92,12 @@ function ProductCart({ product, id }) {
       <div className="flex flex-col gap-2 box-prod">
         <div className="relative overflow-hidden ">
           <div className="relative">
-            {loading && <div className="w-full h-full bg-slate-100 absolute">
+            {loading && <div className="w-full h-full bg-slate-50 absolute">
               <div className="flex gap-2 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+                {/* <div className="w-5 h-5 rounded-full animate-pulse bg-[#F5CAAB]"></div>
                 <div className="w-5 h-5 rounded-full animate-pulse bg-[#F5CAAB]"></div>
-                <div className="w-5 h-5 rounded-full animate-pulse bg-[#F5CAAB]"></div>
-                <div className="w-5 h-5 rounded-full animate-pulse bg-[#F5CAAB]"></div>
+                <div className="w-5 h-5 rounded-full animate-pulse bg-[#F5CAAB]"></div> */}
+                <img src={loadingAnimate} />
               </div>
             </div>}
             <img
