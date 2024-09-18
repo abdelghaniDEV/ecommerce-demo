@@ -150,7 +150,7 @@ function ProductCart({ product, id }) {
         <AnimatePresence>
           {showNoti === true && (
             <motion.div
-              className="fixed bottom-[20px] left-0 md:left-[5rem]   z-[3000]"
+              className="fixed bottom-[20px] left-[12px] md:left-[5rem]   z-[3000]"
               variants={item}
               initial={{ y: "100vh", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
