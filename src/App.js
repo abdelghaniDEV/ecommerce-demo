@@ -26,7 +26,7 @@ function App() {
     <div className='overflow-hidden'>
     <Header />
     <Routes>
-       <Route path='/' element={<Home />}/>
+       <Route path='' element={<Home />}/>
        <Route path='products/:category' element={<Products />} />
        <Route path='/product/:id' element={<ProductDetail />} />
        <Route path='/shop' element={<Shop />} />
