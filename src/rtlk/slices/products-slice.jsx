@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { Axios } from "axios";
 import { act } from "react";
+import { useDispatch } from "react-redux";
 
 
 export const fetchProducts = createAsyncThunk("productsSlice/fetchProducts", async () => {
+
     try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/products?populate=*`, {
           headers: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,7 @@ function ProductCart({ product, id }) {
   const [addWshlist, setAddWshlist] = useState(false);
   const [loading, setLoading] = useState(true);
   const wshilst = useSelector((state) => state.wshlist);
+  const products = useSelector(state => state.products)
 
   const dispatch = useDispatch();
 
@@ -32,6 +33,9 @@ function ProductCart({ product, id }) {
       setLoading(false);
     }, 2000);
   }, []);
+
+
+  
 
   const handlWshliteClick = (productInWishlist) => {
     if (productInWishlist) {
@@ -64,16 +68,16 @@ function ProductCart({ product, id }) {
     setProductShowCart(product);
   };
 
-  if (showNoti === true) {
-    function myFunction() {
-      setTimeout(function () {
-        // x.className = x.className.replace("block", "hidden");
-        setShowNoti(false);
-      }, 2000);
-    }
+  // if (showNoti === true) {
+  //   function myFunction() {
+  //     setTimeout(function () {
+  //       // x.className = x.className.replace("block", "hidden");
+  //       setShowNoti(false);
+  //     }, 2000);
+  //   }
 
-    myFunction();
-  }
+  //   myFunction();
+  // }
 
   const item = {
     exit: {
