@@ -68,6 +68,16 @@ function ProductCart({ product, id }) {
     setProductShowCart(product);
   };
 
+  if (showNoti === true) {
+    function myFunction() {
+      setTimeout(function () {
+        // x.className = x.className.replace("block", "hidden");
+        setShowNoti(false);
+      }, 2000);
+    }
+
+    myFunction();
+  }
 
   const item = {
     exit: {
