@@ -64,7 +64,7 @@ function Search({ setShowSearch }) {
                 type="submit"
                 className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-[#F5CAAB] rounded-e-lg border border-[#F5CAAB] hover:bg-[#F5CAAB] focus:ring-4 focus:outline-none "
               >
-                <i class="bx bx-search h-4 w-4 text-[20px]"></i>
+                <i className="bx bx-search h-4 w-4 text-[20px]"></i>
                 <span className="sr-only">Search</span>
               </button>
             </div>
@@ -72,7 +72,7 @@ function Search({ setShowSearch }) {
         </form>
       </div>
       <div>
-        <div className=" flex flex-col   h-[480px]  overflow-scroll px-[25px] ">
+        <div className=" flex flex-col   h-[480px]  overflow-scroll pl-[25px] ">
           {result.map((item) => {
             return (
               <div key={item.id}>
@@ -98,11 +98,11 @@ function Search({ setShowSearch }) {
                     key={item.id}
                   >
                     <img
-                      className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+                      className="m-2 w-[70px] min-h-[90px]  rounded-md border object-cover object-center"
                       src={item.attributes.images.data[0].attributes.url}
                     />
 
-                    <div className="flex w-full flex-col px-4 py-2">
+                    <div className="flex w-full flex-col px-2 md:px-4 py-2">
                       <Link
                         to={`/product/${item.id}`}
                         className="font-semibold"

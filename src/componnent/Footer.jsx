@@ -5,28 +5,12 @@ import { useSelector } from "react-redux";
 function Footer() {
   const categories = useSelector((state) => state.categories);
   return (
-    <div className="mt-[20px]">
-      <div className="container flex flex-col lg:flex-row gap-4 justify-between border-t-[1.5px]  py-[40px]">
-        <div>
-          <ul className="flex flex-col gap-[10px] text-[#868686] " >
-            <li>
-              <img src={logo} className="w-[200px]" />
-            </li>
-            <li className="flex items-center gap-2">
-              <i className="bx bx-location-plus  text-[15px] font-[400]"></i>
-              1418 Riverwood Drive, Suite 3245 Cottonwood,
-              <br /> CA 96052, United States
-            </li>
-            <li className="flex items-center gap-2">
-              <i className="bx bx-phone text-[15px] font-[400]"></i>+ 185659635
-            </li>
-            <li className="flex items-center gap-2">
-              <i className="bx bx-envelope text-[15px] font-[400]"></i>
-              contact@katie.com
-            </li>
-          </ul>
-        </div>
-        <div className="flex gap-[100px]">
+    <div className="mt-[20px] container border-t-2 pt-[25px]">
+      <div>
+         <img src={logo} className="w-[170px] md:w-[200px]" />
+      </div>
+      <div className="  flex flex-col gap-5 lg:flex-row-reverse lg:items-center lg:gap-4 justify-between  pb-[40px]">
+      <div className="flex gap-[100px]">
           <div>
             <h2 className="text-[25px] pb-2 font-[500]">Pages</h2>
             <ul className="flex flex-col gap-[10px] text-[15px] font-[400] text-[#868686] ">
@@ -44,6 +28,23 @@ function Footer() {
               })}
             </ul>
           </div>
+        </div>
+        <div>
+          <ul className="flex flex-col gap-[10px] text-[#868686] " >
+            
+            <li className="flex items-center gap-2">
+              <i className="bx bx-location-plus  text-[15px] font-[400]"></i>
+              1418 Riverwood Drive, Suite 3245 Cottonwood,
+              <br /> CA 96052, United States
+            </li>
+            <li className="flex items-center gap-2">
+              <i className="bx bx-phone text-[15px] font-[400]"></i>+ 185659635
+            </li>
+            <li className="flex items-center gap-2">
+              <i className="bx bx-envelope text-[15px] font-[400]"></i>
+              contact@katie.com
+            </li>
+          </ul>
         </div>
       </div>
       <div className="pb-2">
