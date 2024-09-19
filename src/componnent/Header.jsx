@@ -44,13 +44,13 @@ function Header() {
       <div
         id="products-container"
         onClick={() => setShowCart(false)}
-        className="fixed top-0 left-0 w-full h-full bg-[#000000b3] opacity-0 invisible transition-opacity z-[1000] "
+        className="fixed top-0 left-0 w-full h-full bg-[#000000b3] opacity-0 invisible transition-opacity z-[1000] pointer-events-none "
       ></div>
       {/* animation cart */}
       <AnimatePresence>
         {showCart && (
           <motion.div
-            className="fixed top-0 h-full right-0 bg-white w-[90%] md:w-[400px]  z-[1000]"
+            className="fixed top-0 h-full right-0 bg-white w-[90%] md:w-[400px]  z-[1000] overflow-scroll pb-[60px]"
             variants={item}
             initial={{ right: "-100vh", opacity: 0 }}
             animate={{ right: 0, opacity: 1 }}

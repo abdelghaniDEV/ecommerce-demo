@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 function Search({ setShowSearch }) {
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [value , setvalue] = useState()
- 
+  const [value, setvalue] = useState();
+
   const products = useSelector((state) => state.products);
 
   useEffect(() => {}, []);
@@ -18,7 +18,7 @@ function Search({ setShowSearch }) {
   const handelSearch = (e) => {
     const value = e.target.value.toLowerCase().trim();
     setLoading(true);
-    setvalue(value)
+    setvalue(value);
     const filterProducts = products.filter(
       (item) =>
         item.attributes.title.toLowerCase().includes(value) ||
@@ -99,10 +99,7 @@ function Search({ setShowSearch }) {
                   >
                     <img
                       className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                      src={
-                        process.env.REACT_APP_API_URL +
-                        item.attributes.images.data[0].attributes.url
-                      }
+                      src={item.attributes.images.data[0].attributes.url}
                     />
 
                     <div className="flex w-full flex-col px-4 py-2">
@@ -137,9 +134,10 @@ function Search({ setShowSearch }) {
           })}
           {result.length === 0 && (
             <div className="text-center pt-[50%]">
-              {value && <i class='bx bx-sad text-[80px] text-[#F5CAAB]'></i>}
-              <p className="text-[30px]   ">No result found {value && `for '${value}'` }</p>
-              
+              {value && <i className="bx bx-sad text-[80px] text-[#F5CAAB]"></i>}
+              <p className="text-[30px]   ">
+                No result found {value && `for '${value}'`}
+              </p>
             </div>
           )}
         </div>
