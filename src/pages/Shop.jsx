@@ -6,6 +6,7 @@ function Shop() {
 
   const categories = useSelector(state => state.categories)
 
+
   // const { shop } = useParams()
   return (
     <div className=''>
@@ -23,7 +24,7 @@ function Shop() {
       </div>
       <div className=' m-[35px] grid grid-cols-1 gap-6  md:grid-cols-3 '>
         {categories.map((category) => {
-          return <CategpryCart category={category} key={category.id} />
+          return <CategpryCart category={category} key={category._id} />
         })}
     </div>
     </div>

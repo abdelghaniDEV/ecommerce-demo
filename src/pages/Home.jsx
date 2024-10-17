@@ -22,13 +22,13 @@ function Home() {
 
   const products = useSelector(state => state.products);
   const categories = useSelector(state => state.categories)
-  
+  console.log('home' ,categories)
   // console.log(products)
   // console.log(data)
 
-  const betterProducts = products.filter((product) => product.attributes.better === true)
+  const betterProducts = products.filter((product) => product.better === true)
 
-  const sameItems = products.filter((product) => product.attributes.better === true)
+  const sameItems = products.filter((product) => product.better === true)
 
     
 
@@ -61,11 +61,12 @@ function Home() {
       </div>
       <motion.div 
         className="m-[35px] grid grid-cols-1 gap-6  md:grid-cols-3  ">
-        {categories.map((cate) => {
-          if(cate.attributes.showHome === true){
-            return <CategpryCart category={cate} key={cate.id} />
+        {/* {categories.map((cate) => {
+          if(cate.index === 1){
+            return />
           }
-        })}
+        })} */}
+        {/* <CategpryCart category={categories[0]}/> */}
       </motion.div>
       <div>
         <div className="  flex flex-col gap-2 items-center mb-[20px]">
@@ -74,7 +75,7 @@ function Home() {
             Donec venenatis vulputate lorem roin sapien ipsum, porta a auctor
           </p>
         </div>
-        <ListProducts products={betterProducts} />
+        <ListProducts products={products} />
       </div>
       {/* banner */}
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1 }} className=" relative bg-[#F1EEF4] h-[240px] my-[30px] overflow-hidden flex md:h-[420px]   ">

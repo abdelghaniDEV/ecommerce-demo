@@ -20,7 +20,7 @@ function AddtoCart({ product }) {
 
   const dispatch = useDispatch();
 
-  const urlapi = "http://localhost:1337";
+
 
   // check description in side this product
   const showShortdescriptin = (productShowCart) => {

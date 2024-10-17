@@ -16,10 +16,11 @@ function Cart({ setShowCart }) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  console.log(cart)
 
   const priceTotal = () => {
     return cart
-      .reduce((total, item) => total + item.attributes.price * item.amount, 0)
+      .reduce((total, item) => total + item.price * item.amount, 0)
       .toFixed(2);
   };
 
@@ -58,49 +59,45 @@ function Cart({ setShowCart }) {
               >
                 <div>
                   <img
-                    alt={item.attributes.title}
-                    className="w-[120px] rounded-[5px]"
-                    src={item.attributes.images.data[0].attributes.url}
+                    alt={item.name}
+                    className="w-[100px] rounded-[5px]"
+                    src={item.image[0]}
                   />
                 </div>
                 <div className="md:pt-2 flex flex-col  w-full ">
                   <Link
-                    to={`product/${item.id}`}
+                    to={`product/${item._id}`}
                     onClick={() => setShowCart(false)}
                     className="text-[14px] truncate font-[600]"
                   >
-                    {item.attributes.title}
+                    {item.name}
                   </Link>
-                  {/* <span className="text-[12px] text-[#055507] font-medium">
-                    In Stock
-                  </span> */}
                   <div className="flex items-center gap-4">
-                    <h1 className="font-medium text-[20px]">
-                      ${(item.attributes.price * item.amount).toFixed(2)}
+                    <h1 className="font-medium text-[20px] leading-[18px]">
+                      ${(item.price * item.amount).toFixed(2)}
                     </h1>
                     <span className="text-[red] text-[13px] line-through">
-                      {item.attributes.discount}
+                      {item.PriceDiscount}
                     </span>
                   </div>
-                  {item.attributes.sizeclothes && (
+                  {item.sizeTarget && (
                     <div className="flex flex-col">
                       <span className="text-[10px] font-medium">
                         size:{" "}
-                        <span className="text-[#686868]">
+                        <span className="text-[#686868] font-[600] text-[15px]">
                           {item.sizeTarget}
                         </span>
                       </span>
                     </div>
                   )}
-
                   <div className="flex items-center justify-between pt-1">
-                    <div className="flex items-center gap-3 bg-slate-200 px-5 py-1">
+                    <div className="flex items-center gap-3 bg-slate-200 px-4 py-">
                       <button onClick={(e) => changAmount(e, item)}>-</button>
                       <span className="border-r-2">{item.amount}</span>
                       <button onClick={(e) => changAmount(e, item)}>+</button>
                     </div>
                     <div className="flex items-center gap-3">
-                      {/* <Link onClick={() => setShowCart(false)} to={`product/${item.id}`}><i className='bx bxs-edit-alt text-[20px]' ></i></Link> */}
+                      
                       <i
                         className="bx bx-trash text-[20px] text-[red]"
                         onClick={() => dispatch(deleteItemCart(item))}

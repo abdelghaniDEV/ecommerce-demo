@@ -4,14 +4,15 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Link } from "react-router-dom";
+import { color } from "framer-motion";
 
 const CheckoutForm = () => {
   const stripePromise = loadStripe(
     process.env.REACT_APP_STRIPE_PUBLISH_KEY
   );
 
-  console.log(process.env.REACT_APP_STRIPE_PUBLISH_KEY)
   const cart = useSelector((statu) => statu.cart);
+  
 
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +43,7 @@ const CheckoutForm = () => {
 
   const priceTotal = () => {
     return cart
-      .reduce((total, item) => total + item.attributes.price * item.amount, 0)
+      .reduce((total, item) => total + item.price * item.amount, 0)
       .toFixed(2);
   };
 
@@ -82,39 +83,85 @@ const CheckoutForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      handleCheckout();
+      // handleCheckout();
+      submitOrder()
       // Handle successful form submission
-    }
+    } 
   };
 
   const handleCheckout = async () => {
     const stripe = await stripePromise;
-    // Create a payment session using Strapi API
-    const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/payments/create-session`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
-        },
-        body: JSON.stringify({ cart }),
+  
+    try {
+      // Create a payment session using Strapi API with Axios
+      const response = await axios.post(
+        'http://localhost:4000/api/payments/create-checkout-session',
+        { cart }, // body containing the cart data
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            // Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`, // Uncomment if you need authorization
+          },
+        }
+      );
+  
+      const session = response.data;
+  
+      console.log('session', session);
+  
+      // Redirect to Stripe Checkout
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+  
+      
+      if (result.error) {
+        console.error(result.error.message);
       }
-    );
-
-    const session = await response.json();
-
-
-    // Redirect to Stripe Checkout
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
-      console.error(result.error.message);
+    } catch (error) {
+      console.error('Error during checkout:', error.message || error);
     }
   };
 
+
+
+  const submitOrder = async() => {
+    const orderProduct = cart.map((prod) => {
+      return {
+        product: prod._id,
+        quantity: prod.amount,
+        sizeSelector: prod.sizeTarget,
+        colorSelector: "#ffff",
+      };
+    })
+
+    // Make API call to submit the order to Strapi API
+    const orderData = {
+      name: formData.fullName,
+      email: formData.email,
+      address: formData.address,
+      zipCode: formData.zipCode,
+      products: [...orderProduct],
+      totalPrice: priceTotal(),
+    };
+
+    try {
+      // simulate API call
+      const response = await axios.post(
+        "http://localhost:4000/api/orders",
+        orderData,
+        {
+         headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+          },
+        }
+      );
+      console.log("Upload successful:", response.data);
+    } catch (err) {
+      console.error(err);
+    }
+
+  }
   return (
     <>
       <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
@@ -126,11 +173,11 @@ const CheckoutForm = () => {
           <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
             {cart.map((item) => {
               return (
-                <div key={item.id}>
+                <div key={item._id}>
                   {loading ? (
                     <div
                       className="flex  rounded-lg bg-white sm:flex-row"
-                      key={item.id}
+                      key={item._id}
                     >
                       <div className="m-2 h-24 w-28 rounded-md border border-[F5CAAB] object-cover object-center relative bg-gray-300 animate-pulse">
                         <div className="flex gap-2 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
@@ -150,7 +197,7 @@ const CheckoutForm = () => {
                     >
                       <img
                         className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                        src={item.attributes.images.data[0].attributes.url}
+                        src={item.image[0]}
                       />
 
                       <div className="flex w-full flex-col px-4 py-4">
@@ -158,13 +205,13 @@ const CheckoutForm = () => {
                           to={`/product/${item.id}`}
                           className="font-semibold"
                         >
-                          {item.attributes.title}
+                          {item.name}
                         </Link>
                         <span className="float-right text-gray-400">
                           Free Shipping
                         </span>
                         <p className="text-lg font-bold">
-                          ${(item.attributes.price * item.amount).toFixed(2)}
+                          ${(item.price * item.amount).toFixed(2)}
                         </p>
                       </div>
                     </div>

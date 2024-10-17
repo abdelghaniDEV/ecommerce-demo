@@ -27,7 +27,7 @@ const cartSlice = createSlice({
   initialState: loadFromLocalStorage(),
   reducers: {
     addProducts: (state, action) => {
-      const findProd = state.find((item) => item.id === action.payload.id);
+      const findProd = state.find((item) => item._id === action.payload._id);
       if (findProd) {
         findProd.amount = action.payload.amount;
         findProd.sizeTarget = action.payload.sizeTarget;
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
       saveToLocalStorage(state); // Save state to local storage
     },
     deleteItemCart: (state, action) => {
-      const updatedState = state.filter((item) => item.id !== action.payload.id);
+      const updatedState = state.filter((item) => item._id !== action.payload._id);
       saveToLocalStorage(updatedState); // Save state to local storage
       return updatedState;
     },
@@ -47,14 +47,14 @@ const cartSlice = createSlice({
       return updatedState
     },
     decrementAmount: (state, action) => {
-      const findProd = state.find((item) => item.id === action.payload.id);
+      const findProd = state.find((item) => item._id === action.payload._id);
       if (findProd) {
         findProd.amount -= 1;
         saveToLocalStorage(state); // Save state to local storage
       }
     },
     incrementAmount: (state, action) => {
-      const findProd = state.find((item) => item.id === action.payload.id);
+      const findProd = state.find((item) => item._id === action.payload._id);
       if (findProd) {
         findProd.amount += 1;
         saveToLocalStorage(state); // Save state to local storage

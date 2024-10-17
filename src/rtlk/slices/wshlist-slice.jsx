@@ -26,14 +26,14 @@ const wishlistSlice = createSlice({
     initialState: loadFromLocalStorage(),
     reducers: {
         addProduct: (state, action) => {
-            const findProd = state.find((item) => item.id === action.payload.id);
+            const findProd = state.find((item) => item._id === action.payload._id);
             if (!findProd) {
-                state.push({ ...action.payload });
+                state.push(action.payload);
                 saveToLocalStorage(state); // Save state to local storage
             }
         },
         deleteItemWishlist: (state, action) => {
-            const index = state.findIndex((item) => item.id === action.payload.id);
+            const index = state.findIndex((item) => item._id === action.payload._id);
             if (index !== -1) {
                 state.splice(index, 1);
                 saveToLocalStorage(state); // Save state to local storage

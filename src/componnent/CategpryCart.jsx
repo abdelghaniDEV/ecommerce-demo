@@ -14,9 +14,11 @@ function CategpryCart({ category }) {
     }, 2000);
   }, []);
 
+  console.log(category)
+
   return (
     //  <motion.div initial={{ opacity:0}} whileInView={{ opacity:1 }} transition={{ duration :  }}>
-    <Link to={`/products/${category.attributes.name}`} className="relative  ">
+    <Link to={`/products/${category.name}`} className="relative  ">
       <div
       >
         <div className="">
@@ -30,15 +32,15 @@ function CategpryCart({ category }) {
             )}
           <img
             src={
-              category.attributes.categoryImage.data &&
-                category.attributes.categoryImage.data.attributes.url
+              category.image &&
+                category.image
             }
             className=" w-[400px] h-[230px] "
           />
           <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] ">
             <div className="flex flex-col items-center gap-2 pb-4">
               <span className="text-[38px] font-medium text-black bg-white text-center px-[40px] md:text-[40px]">
-                {category.attributes.name}
+                {category.name}
               </span>
               <div className="flex items-center gap-1 bg-slate-50 ">
                 <span className=" text-[12px] lg:text-[13px] pl-6 font-semibold text-[#C59780]">

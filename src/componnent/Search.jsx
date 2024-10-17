@@ -10,10 +10,10 @@ function Search({ setShowSearch }) {
 
   const products = useSelector((state) => state.products);
 
-  useEffect(() => {}, []);
-  setTimeout(() => {
-    setLoading(false);
-  }, 2000);
+    useEffect(() => {}, []);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
 
   const handelSearch = (e) => {
     const value = e.target.value.toLowerCase().trim();

@@ -22,17 +22,22 @@ function ProductCart({ product, id }) {
   );
   const [showNoti, setShowNoti] = useState(false);
   const [addWshlist, setAddWshlist] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
   const wshilst = useSelector((state) => state.wshlist);
   const products = useSelector(state => state.products)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 2000);
+    if(product) {
+      setLoading(false)
+    }else {
+      setLoading(true)
+    }
+  }, [product]);
 
 
   
@@ -43,16 +48,15 @@ function ProductCart({ product, id }) {
     } else {
       dispatch(addProduct(product));
       setShowNoti(true);
+      console.log(wshilst)
     }
   };
 
   const handlWshlite = () => {
-    const productInWishlist = wshilst.find((prod) => prod.id === product.id);
+    const productInWishlist = wshilst.find((prod) => prod._id === product._id);
 
     // تحديد أيقونة القلب والنمط بناءً على وجود المنتج في قائمة الأمنيات
-    const iconClass = productInWishlist
-      ? "bx bx-heart text-[23px] bg-[#F5CAAB] rounded-full text-white p-1"
-      : "bx bx-heart text-[23px] bg-white rounded-full p-1";
+    const iconClass = productInWishlist ? "bx bx-heart text-[23px] bg-[#F5CAAB] rounded-full text-white p-1" : "bx bx-heart text-[23px] bg-white rounded-full p-1";
 
     return (
       <i
@@ -105,9 +109,9 @@ function ProductCart({ product, id }) {
               </div>
             </div>}
             <img
-              alt={product.attributes.title}
+              alt={product.name}
               src={
-                product.attributes.images.data[0].attributes.url
+                product.image[0]
               }
               className="text-sm rounded-[10px]"
             />
@@ -128,7 +132,7 @@ function ProductCart({ product, id }) {
                 <i className="bx bx-cart"></i>
               </button>
               <Link
-                to={`/product/${product.id}`}
+                to={`/product/${product._id}`}
                 className="bg-white px-[10px]"
               >
                 <i className="bx bx-show"></i>
@@ -138,17 +142,17 @@ function ProductCart({ product, id }) {
         </div>
         <div className="flex flex-col gap-[4px]">
           <Link
-            to={`/product/${product.id}`}
+            to={`/product/${product._id}`}
             className="text-[14.8px] leading-[1.3] "
           >
-            {product.attributes.title}
+            {product.name}
           </Link>
           <div className="flex gap-3 items-center">
             <span className="text-[#696969] text-[20px]">
-              ${product.attributes.price}
+              ${product.price}
             </span>
             <span className="text-[red] text-[14px] line-through">
-              {product.attributes.discount && `$${product.attributes.discount}`}
+              {product.PriceDiscount && `$${product.PriceDiscount}`}
             </span>
           </div>
         </div>
@@ -168,7 +172,7 @@ function ProductCart({ product, id }) {
                 Icon={
                   <i className="bx bx-heart-circle text-[#198754] text-[30px]"></i>
                 }
-                title={product.attributes.title}
+                title={product.name}
               />
             </motion.div>
           )}

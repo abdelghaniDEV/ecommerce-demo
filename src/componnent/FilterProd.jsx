@@ -114,9 +114,20 @@ function FilterProd({
 
     //filter by selected Stock
     if (selectedCategories.length > 0) {
-      tempProducts = tempProducts.filter((prod) =>
-        selectedCategories.includes(prod.attributes?.stock)
-      );
+      // tempProducts = tempProducts.filter((prod) =>
+      //   selectedCategories.includes('outstock') && prod.stock === 0
+      // );
+      tempProducts = tempProducts.filter((prod) => {
+        // Check for "outstock" category and product with stock 0
+        if (selectedCategories.includes('outstock') && prod.stock === 0) {
+          return true;
+        }
+        // Check for "instock" category and product with stock > 0
+        if (selectedCategories.includes('instock') && prod.stock > 0) {
+          return true;
+        }
+        return false; // Product does not match any filter
+      });
       // save in local stockage
       localStorage.setItem(
         "selectedCategories",
@@ -127,9 +138,9 @@ function FilterProd({
     //Filter by selected sizes
     if (selectedSizes.length > 0) {
       tempProducts = tempProducts.filter((prod) =>
-        prod.attributes?.sizeclothes?.some((size) =>
-          selectedSizes.includes(size)
-        )
+        prod.size.some((size) =>
+          selectedSizes.includes(size.toUpperCase())
+    )
       );
       localStorage.setItem("selectedSizes", JSON.stringify(selectedSizes));
     }
@@ -137,7 +148,7 @@ function FilterProd({
     //filter by price
     if (valuePrice.length > 0) {
       tempProducts = tempProducts.filter((prod) => {
-        const price = prod.attributes.price;
+        const price = prod.price;
         return price >= valuePrice[1] && price <= valuePrice[0];
       });
     }
@@ -150,7 +161,7 @@ function FilterProd({
       // filter by selected best selling
       if (Filters.includes("Best-Selling")) {
         tempProducts = tempProducts.filter(
-          (prod) => prod.attributes?.better === true
+          (prod) => prod.better === true
         );
       }
 
@@ -158,8 +169,8 @@ function FilterProd({
       if (Filters.includes("Fashion")) {
         tempProducts = tempProducts.filter(
           (prod) =>
-            prod.attributes?.categories?.data[0].attributes.name === "Women" ||
-            prod.attributes?.categories?.data[0].attributes.name === "Men"
+            prod.category.includes("Women") ||
+            prod.category.includes("Men") 
         );
       }
 
@@ -167,19 +178,20 @@ function FilterProd({
       if (Filters.includes("Shoes")) {
         tempProducts = tempProducts.filter(
           (prod) =>
-            prod.attributes?.categories?.data.some((cate) => cate.attributes.name === "Shoes")
+            // prod.category.some((cate) => cate.name === "Shoes")
+             prod.category.includes('Shoes')
         );
       }
 
       // filter by selected range price 
       if(Filters.includes("7-50")){
-        tempProducts = tempProducts.filter((prod) =>  prod.attributes?.price >= 7 && prod.attributes?.price <= 50)
+        tempProducts = tempProducts.filter((prod) =>  prod.price >= 7 && prod.price <= 50)
          
         
       }
 
       if(Filters.includes("50-150")){
-        tempProducts = tempProducts.filter((prod) => prod.attributes?.price >= 50 && prod.attributes?.price <= 150)
+        tempProducts = tempProducts.filter((prod) => prod.price >= 50 && prod.price <= 150)
       }
     }
 

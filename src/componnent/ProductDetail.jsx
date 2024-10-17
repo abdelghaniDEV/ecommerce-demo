@@ -32,6 +32,8 @@ function ProductDetail() {
   // select prams in this page
   const prams = useParams();
 
+
+
   useEffect(() => {
     setQuantite(1)
     setSize()
@@ -40,7 +42,8 @@ function ProductDetail() {
   // handle add to this product in cart arry
   const handleAddtoCart = (item) => {
     const errorMessage = document.querySelector(".error-size");
-    if (item.attributes.sizeclothes) {
+    console.log(item.size)
+    if (item.size.length > 0) {
       if (size) {
         const newArr = { ...item, amount: quantite, sizeTarget: size };
         dispatch(addProducts(newArr));
@@ -56,11 +59,11 @@ function ProductDetail() {
 
   // check description in side this product
   const showShortdescriptin = (item) => {
-    if (item.attributes.shortdescription) {
+    if (item.ShortDescription) {
       return (
         <div className="py-[8px] md:max-h-[100px] overflow-hidden text-ellipsis">
           <p className="font-[400] text-[15px] md:text-[16px] text-[#868686] leading-[20px] md:leading-[20px] tracking-[0.03em]">
-            {item.attributes.shortdescription}
+            {item.ShortDescription}
           </p>
         </div>
       );
@@ -120,15 +123,16 @@ function ProductDetail() {
 
   // function check size selected in side
   const showSizeSelected = (item) => {
-    if (item.attributes.sizeclothes !== null) {
+    console.log("Checking", item.size.lenght);
+    if (item.size.length > 0) {
       return (
         <div className="py-[12px] md:py-[15px]">
           <h3 className="pb-[10px]">Size : {size}</h3>
           <ul className="flex items-center flex-wrap gap-4">
-            {item.attributes.sizeclothes.map((item, index) => {
+            {item.size.map((item, index) => {
               return (
                 <li
-                  className="text-[15px] border  px-[20px] cursor-pointer"
+                  className="text-[15px] border uppercase  px-[20px] cursor-pointer"
                   key={index}
                   onClick={(e) => clickSize(e)}
                 >
@@ -159,8 +163,8 @@ function ProductDetail() {
   const listSameProducts = (item) => {
     const listprod = products.filter(
       (prod) =>
-        prod.attributes.categories.data[0].attributes.name ===
-        item.attributes.categories.data[0].attributes.name
+        prod.category[0] ===
+        item.category[0]
     );
     return (
       <div className="grid grid-cols-2 gap-4 mx-auto md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5">
@@ -175,8 +179,8 @@ function ProductDetail() {
   const listViewsProducts = (item) => {
     const listprod = products.filter(
       (prod) =>
-        prod.attributes.categories.data[0].attributes.name !==
-        item.attributes.categories.data[0].attributes.name
+        prod.category[0] !==
+        item.category[0]
     );
     return (
       <div className="grid grid-cols-2 gap-4 mx-auto md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5">
@@ -293,9 +297,10 @@ function ProductDetail() {
   return (
     <div>
       {products.map((item) => {
-        if (item.id == prams.id) {
+        if (item._id == prams.id) {
+          console.log(item)
           return (
-            <div className="container" key={item.id}>
+            <div className="container" key={item._id}>
               {/* title of this page title + categorie + home */}
               <div className="hidden md:block">
                 <ul className="flex items-center gap-2 text-[15px]">
@@ -305,11 +310,11 @@ function ProductDetail() {
                   <i className="bx bx-chevron-right"></i>
                   <li>
                     <Link>
-                      {item.attributes.categories.data[0].attributes.name}
+                      {item.category[0]}
                     </Link>
                   </li>
                   <i className="bx bx-chevron-right"></i>
-                  <li className="text-[#868686]">{item.attributes.title}</li>
+                  <li className="text-[#868686]">{item.name}</li>
                 </ul>
               </div>
               {/* fetch data in product */}
@@ -317,20 +322,20 @@ function ProductDetail() {
                 {/* imges in this product */}
                 <div className="flex flex-col xl:flex-row-reverse md:gap-3 ">
                   <img
-                    alt={item.attributes.title}
+                    alt={item.name}
                     className="display-img h-[80%] md:w-full lg:w-[500px] lg:h-[90%]"
                     // src={showImg(item)}
-                    src={item.attributes.images.data[0].attributes.url}
+                    src={item.image[0]}
                   />
                   <div className="">
                     <ul className="flex flex-row xl:flex-col  gap-3 pt-2">
-                      {item.attributes.images.data.map((image, index) => {
+                      {item.image.map((image, index) => {
                         return (
                           <img
-                            alt={item.attributes.title}
+                            alt={item.name}
                             className=" w-[60px] xl:w-[100px] cursor-pointer"
                             key={index}
-                            src={image.attributes.url}
+                            src={image}
                             onMouseMove={(e) => showImg(e, item)}
                           />
                         );
@@ -343,15 +348,15 @@ function ProductDetail() {
                   <div className="pb-[20px] ">
                     <div className=" flex flex-col lg:gap-4">
                       <h1 className="text-[25px] lg:text-[30px] font-[500] leading-[1.3]">
-                        {item.attributes.title}
+                        {item.name}
                       </h1>
                       <div className="flex items-center gap-4">
                         <span className="text-[35px] md:text-[30px] font-medium">
-                          ${item.attributes.price}
+                          ${item.price}
                         </span>
                         <span className="text-[red] line-through ">
-                          {item.attributes.discount &&
-                            `$${item.attributes.discount}`}
+                          {item.PriceDiscount &&
+                            `$${item.PriceDiscount}`}
                         </span>
                       </div>
                     </div>
@@ -445,25 +450,22 @@ function ProductDetail() {
                     <div className=" py-2 md::py-5 flex flex-col gap-[5px]  text-[14px]  ">
                       <h4 className="text-black text-[16px] ">
                         Sku :{" "}
-                        <span className="text-[#868686]">SKU_{item.id}</span>
+                        <span className="text-[#868686]">SKU_{item._id}</span>
                       </h4>
                       <h4 className=" text-black  text-[16px]">
                         Available :{" "}
-                        <span className="text-[#868686]">One Stock</span>
+                        <span className="text-[#868686]">{item.stock > 0 ? 'One Stock' : 'Out Stock'}</span>
                       </h4>
                       <h4 className="text-black text-[16px]">
                         categories :{" "}
-                        {/* <Link to={`/products/${item.attributes.categories.data[0].attributes.name}`} className="text-[black]">
-                          {item.attributes.categories.data[0].attributes.name}
-                        </Link> */}
-                        {item.attributes.categories.data.map((cate) => {
+                        {item.category.map((cate , index) => {
                           return (
                             <Link
-                              key={cate.id}
-                              to={`/products/${cate.attributes.name}`}
+                              key={index}
+                              to={`/products/${cate}`}
                               className="text-[#868686] pr-[8px]"
                             >
-                              {cate.attributes.name}
+                               {cate}
                             </Link>
                           );
                         })}
@@ -513,7 +515,7 @@ function ProductDetail() {
                 <div id="description" className="lg:my-[25px] my-5  ">
                   <div className="">
                     {/* description */}
-                    {item.attributes.description && (
+                    {item.description && (
                       <div>
                         <div className="flex justify-between items-center">
                           <h3 className="bg-inherit text-[16px] font-[500] lg:text-[19px]">
@@ -522,13 +524,13 @@ function ProductDetail() {
                         </div>
                         <div className="mt-2 ml-2">
                           <p className="text-[#868686] text-[15.5px] lg:text-[16px] tracking-[0.03em]">
-                            {item.attributes.description}
+                            {item.description}
                           </p>
                         </div>
                       </div>
                     )}
                     {/* details */}
-                    {item.attributes.detail && (
+                    {item.details && (
                       <div className="mt-1">
                         <div className="flex justify-between items-center">
                           <h3 className=" text-[16px] font-medium lg:text-[19px]">
@@ -537,7 +539,7 @@ function ProductDetail() {
                         </div>
                         <div className="mt-2 ml-2">
                           <p className="text-[#868686] text-[15.5px] lg:text-[16px]">
-                            {item.attributes.detail}
+                            {item.details}
                           </p>
                         </div>
                       </div>
@@ -567,10 +569,10 @@ function ProductDetail() {
                             size
                           </th>
                           <td className="px-6 py-4">
-                            {item.attributes.sizeclothes &&
-                              item.attributes.sizeclothes.map((ite, index) => {
+                            {item.size &&
+                              item.size.map((ite, index) => {
                                 return (
-                                  <span key={index} className="pr-3">
+                                  <span key={index} className="pr-3 uppercase">
                                     {ite}
                                   </span>
                                 );
@@ -726,7 +728,7 @@ function ProductDetail() {
                         <i className="bx bxs-cart-download text-[#198754] text-[30px]"></i>
                         
                       }
-                      title={item.attributes.title}
+                      title={item.name}
                     />
                   </motion.div>
                 )}

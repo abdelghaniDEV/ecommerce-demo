@@ -5,9 +5,10 @@ import { useDispatch } from "react-redux";
 
 
 export const fetchProducts = createAsyncThunk("productsSlice/fetchProducts", async () => {
+  //`${process.env.REACT_APP_API_URL}/api/products?populate=*
 
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/products?populate=*`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/products`, {
           headers: {
             Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
           },
@@ -26,7 +27,8 @@ const productsSlice = createSlice({
     reducers : {},
     extraReducers : (builder) => {
         builder.addCase(fetchProducts.fulfilled , (state , action) => {
-            return state = action.payload.data
+            console.log(action.payload.data)
+            return state = action.payload.data.products
             
         })
     }

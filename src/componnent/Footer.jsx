@@ -24,7 +24,7 @@ function Footer() {
             <h6 className="text-[25px] pb-2 font-[500]">categories</h6>
             <ul className="flex flex-col gap-[10px] text-[15px] font-[400] text-[#868686] ">
               {categories.map((cate) => {
-                return <li key={cate.id}>{cate.attributes.name}</li>;
+                return <li key={cate._id}>{cate.name}</li>;
               })}
             </ul>
           </div>

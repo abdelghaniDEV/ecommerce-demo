@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 
 export const fetchCatrgpries = createAsyncThunk('categpries-slice/fetchCatrgpries' , async () => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/categories?populate=*`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/categories`, {
           headers: {
             Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
           },
@@ -31,7 +31,8 @@ const categoriesSlice = createSlice ({
     },
     extraReducers : (builder) => {
         builder.addCase(fetchCatrgpries.fulfilled , (state , action) => {
-             return state = action.payload.data
+             console.log('slice',action.payload.data)
+             return state = action.payload.data.categories
         })
     }
 })

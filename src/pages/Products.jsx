@@ -41,16 +41,20 @@ function Products() {
       const fetched =
         category === "All"
           ? products
-          : products.filter((prod) =>
-              prod.attributes?.categories?.data.some(
-                (cat) => cat.attributes?.name === category
-              )
-            );
+          : products.filter((prod) => prod.category.includes(category))
+
+          // products.filter((prod) =>
+          //   prod.category.some(
+          //     (cat) => cat.name === category
+          //   )
+          // );
+
+            console.log('fitched',fetched)
 
       // Only update the state if the fetched products are different
       if (
         fetched.length !== fetchedProducts.length ||
-        fetched.some((prod, index) => prod.id !== fetchedProducts[index]?.id)
+        fetched.some((prod, index) => prod._id !== fetchedProducts[index]?._id)
       ) {
         setFetchedProducts(fetched);
       }
@@ -117,12 +121,12 @@ function Products() {
               {categories.map((cate) => {
                 return (
                   <li
-                    key={cate.id}
-                    id={cate.attributes.name}
+                    key={cate._id}
+                    id={cate.name}
                     className=" text-[15px] lg:text-[17px] "
                   >
-                    <Link to={`/products/${cate.attributes.name}`}>
-                      {cate.attributes.name}
+                    <Link to={`/products/${cate.name}`}>
+                      {cate.name}
                     </Link>
                   </li>
                 );
